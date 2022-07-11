@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import lombok.extern.slf4j.Slf4j;
 import xyz.csongyu.smartinvestscheduler.service.LaunchTaskService;
 
+@Slf4j
 @Configuration
 @ConditionalOnProperty(value = "schedule.fund-open-fund-info-em.unit-net-asset-value.enable", havingValue = "true")
 public class FundOpenFundInfoEmUnitNetAssetValueConfiguration {
@@ -22,6 +24,8 @@ public class FundOpenFundInfoEmUnitNetAssetValueConfiguration {
 
     @Scheduled(cron = "${schedule.fund-open-fund-info-em.unit-net-asset-value.cron}")
     public void schedule() throws IOException {
+        log.info("schedule task fofieunav");
+
         final List<String> properties = Arrays.asList(
             "app.job-fund-open-fund-info-em-unit-net-asset-value.job.module.name=unit-net-asset-value",
             "app.job-fund-open-fund-info-em-unit-net-asset-value.job.name=fund-open-fund-info-em",

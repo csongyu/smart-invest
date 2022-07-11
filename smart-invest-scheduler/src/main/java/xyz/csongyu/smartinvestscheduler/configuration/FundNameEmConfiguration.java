@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import lombok.extern.slf4j.Slf4j;
 import xyz.csongyu.smartinvestscheduler.service.LaunchTaskService;
 
+@Slf4j
 @Configuration
 @ConditionalOnProperty(value = "schedule.fund-name-em.enable", havingValue = "true")
 public class FundNameEmConfiguration {
@@ -22,6 +24,8 @@ public class FundNameEmConfiguration {
 
     @Scheduled(cron = "${schedule.fund-name-em.cron}")
     public void schedule() throws IOException {
+        log.info("schedule task fne");
+
         final List<String> properties =
             Arrays.asList("app.job-fund-name-em.job.name=fund-name-em", "app.task-fund-name-em.task.name=fund-name-em",
                 "app.task-initialize-schema-fund-name-em.task.module.name=fund-name-em",
